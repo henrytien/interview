@@ -396,67 +396,15 @@ int main() {
 }
 ```
 
-### C 实现 C++ 类
 
-C 实现 C++ 的面向对象特性（封装、继承、多态）
-
-* 封装：使用函数指针把属性与方法封装到结构体中
-* 继承：结构体嵌套
-* 多态：父类与子类方法的函数指针不同
-
-> [Can you write object-oriented code in C? [closed]](https://stackoverflow.com/a/351745)
 
 ### explicit（显式）关键字
 
 * explicit 修饰构造函数时，可以防止隐式转换和复制初始化
 * explicit 修饰转换函数时，可以防止隐式转换，但 [按语境转换](https://zh.cppreference.com/w/cpp/language/implicit_conversion) 除外
 
-explicit 使用
+ 
 
-```cpp
-struct A
-{
-	A(int) { }
-	operator bool() const { return true; }
-};
-
-struct B
-{
-	explicit B(int) {}
-	explicit operator bool() const { return true; }
-};
-
-void doA(A a) {}
-
-void doB(B b) {}
-
-int main()
-{
-	A a1(1);		// OK：直接初始化
-	A a2 = 1;		// OK：复制初始化
-	A a3{ 1 };		// OK：直接列表初始化
-	A a4 = { 1 };		// OK：复制列表初始化
-	A a5 = (A)1;		// OK：允许 static_cast 的显式转换 
-	doA(1);			// OK：允许从 int 到 A 的隐式转换
-	if (a1);		// OK：使用转换函数 A::operator bool() 的从 A 到 bool 的隐式转换
-	bool a6（a1）;		// OK：使用转换函数 A::operator bool() 的从 A 到 bool 的隐式转换
-	bool a7 = a1;		// OK：使用转换函数 A::operator bool() 的从 A 到 bool 的隐式转换
-	bool a8 = static_cast<bool>(a1);  // OK ：static_cast 进行直接初始化
-
-	B b1(1);		// OK：直接初始化
-	B b2 = 1;		// 错误：被 explicit 修饰构造函数的对象不可以复制初始化
-	B b3{ 1 };		// OK：直接列表初始化
-	B b4 = { 1 };		// 错误：被 explicit 修饰构造函数的对象不可以复制列表初始化
-	B b5 = (B)1;		// OK：允许 static_cast 的显式转换
-	doB(1);			// 错误：被 explicit 修饰构造函数的对象不可以从 int 到 B 的隐式转换
-	if (b1);		// OK：被 explicit 修饰转换函数 B::operator bool() 的对象可以从 B 到 bool 的按语境转换
-	bool b6(b1);		// OK：被 explicit 修饰转换函数 B::operator bool() 的对象可以从 B 到 bool 的按语境转换
-	bool b7 = b1;		// 错误：被 explicit 修饰转换函数 B::operator bool() 的对象不可以隐式转换
-	bool b8 = static_cast<bool>(b1);  // OK：static_cast 进行直接初始化
-
-	return 0;
-}
-```
 
 ### friend 友元类和友元函数
 
@@ -726,7 +674,7 @@ int main()
     3. 参数多态性（Parametric Polymorphism，编译期）：类模板、函数模板
     4. 强制多态（Coercion Polymorphism，编译期/运行期）：基本类型转换、自定义类型转换
 
-> [The Four Polymorphisms in C++](https://catonmat.net/cpp-polymorphism)
+>  
 
 #### 静态多态（编译期/早绑定）
 
